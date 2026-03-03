@@ -23,3 +23,10 @@ dist-ssr
 *.sln
 *.sw?
 .env.local
+.env
+.env.*
+.venv/
+keys/
+backups/
+zips/
+backup_*.zip
