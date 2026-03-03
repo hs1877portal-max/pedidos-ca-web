@@ -14,15 +14,15 @@ const Login = () => {
   const users = [
     { 
       id: 1, 
-      username: 'Edwin', 
-      password: 'emc', 
+      username: 'adrian', 
+      password: 'adrian2026', 
       role: 'admin',
       descripcion: 'Admin - Acceso Total. Administrador del sistema. Ver todo, gestionar usuarios, reportes completos.'
     },
     { 
       id: 2, 
-      username: 'fredy', 
-      password: '801551', 
+      username: 'hector', 
+      password: 'hector2026', 
       role: 'admin',
       descripcion: 'Admin - Acceso Total. Administrador del sistema. Ver todo, gestionar usuarios, reportes completos.'
     },
@@ -35,22 +35,22 @@ const Login = () => {
     },
     { 
       id: 3, 
-      username: 'paola', 
-      password: '1v3nt', 
+      username: 'inventario', 
+      password: 'inventario2026*', 
       role: 'inventario',
       descripcion: 'Bodega (Inventario) - Crear facturas, catálogo, gestión de inventario, gestión de pedidos.'
     },
     { 
       id: 4, 
-      username: 'caro', 
-      password: 'caro123', 
+      username: 'contabilidad', 
+      password: 'conta*', 
       role: 'contabilidad',
       descripcion: 'Contabilidad - Ver facturas guardadas, reportes de cobros, análisis de contabilidad.'
     },
     { 
       id: 5, 
-      username: 'fabian', 
-      password: '0411', 
+      username: 'vendedor 3', 
+      password: 'vendedor*', 
       role: 'admin',
       descripcion: 'Admin - Acceso Total. Administrador del sistema. Ver todo, gestionar usuarios, reportes completos.'
     }
@@ -73,7 +73,7 @@ const Login = () => {
     <div className="login-container">
       <div className="login-card">
         <div className="login-header">
-          <h1>Distribuciones EBS Hermanos Marín</h1>
+          <h1>comercializadora alejandra Hermanos Marín</h1>
           <p>Sistema de pedidos y catálogo digital</p>
         </div>
         

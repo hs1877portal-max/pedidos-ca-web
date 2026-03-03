@@ -6,6 +6,8 @@ import './CatalogoProductos.css';
 const CloudinaryUpload = ({ onImageUpload }) => {
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
+  const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+  const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
@@ -22,14 +24,19 @@ const CloudinaryUpload = ({ onImageUpload }) => {
       return;
     }
 
+    if (!cloudName || !uploadPreset) {
+      alert('Falta configuración de Cloudinary (VITE_CLOUDINARY_CLOUD_NAME y VITE_CLOUDINARY_UPLOAD_PRESET).');
+      return;
+    }
+
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', 'catalogo_productos_web'); // Tu Upload Preset
+    formData.append('upload_preset', uploadPreset);
 
     try {
       setUploading(true);
       const response = await axios.post(
-        'https://api.cloudinary.com/v1_1/dstnroimw/image/upload', // Tu Cloud Name
+        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
         formData,
         {
           onUploadProgress: (progressEvent) => {
