@@ -96,7 +96,7 @@ describe('Button Component', () => {
     render(<Button>Primary</Button>)
     
     const button = screen.getByRole('button')
-    expect(button.className).toContain('bg-blue-500')
+    expect(button.className).toContain('bg-green-500')
   })
   
   test('aplica clases de variante secondary', () => {

@@ -212,7 +212,7 @@
 
 .local-item-improved.selected {
   border-left-color: #3498db;
-  background-color: #e3f2fd;
+  background-color: #dcfce7;
 }
 
 .local-item-improved.sabana { border-left-color: #27ae60; }
@@ -616,7 +616,7 @@
 }
 
 .clients-table tr.selected {
-  background-color: #e3f2fd;
+  background-color: #dcfce7;
 }
 
 .clients-table tr:hover {

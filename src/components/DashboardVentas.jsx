@@ -417,7 +417,7 @@ const DashboardVentas = () => {
           }
           .resumen-card {
             background: #f0f0f0;
-            border-left: 4px solid #2196F3;
+            border-left: 4px solid #22c55e;
             padding: 12px;
             border-radius: 3px;
           }
@@ -447,7 +447,7 @@ const DashboardVentas = () => {
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
           }
           thead {
-            background: #2196F3;
+            background: #22c55e;
             color: white;
           }
           th {
@@ -455,7 +455,7 @@ const DashboardVentas = () => {
             text-align: left;
             font-size: 11px;
             font-weight: bold;
-            border-bottom: 2px solid #1976D2;
+            border-bottom: 2px solid #16a34a;
           }
           td {
             padding: 10px 12px;
@@ -1068,7 +1068,7 @@ const DashboardVentas = () => {
 
   // Colores para los gráficos
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8', '#82CA9D'];
-  const COLORS_COBROS = ['#4CAF50', '#2196F3', '#FF9800', '#E91E63', '#9C27B0', '#607D8B'];
+  const COLORS_COBROS = ['#4CAF50', '#22c55e', '#FF9800', '#E91E63', '#9C27B0', '#607D8B'];
 
   if (loading) {
     return (
@@ -1128,20 +1128,20 @@ const DashboardVentas = () => {
       {activeTab === 'general' && (
         <>
           {/* Resumen del período filtrado */}
-          <div className="dashboard-card full-width" style={{ marginBottom: '20px', backgroundColor: '#e3f2fd', borderLeft: '4px solid #2196F3' }}>
-            <h2 style={{ color: '#1976D2', marginBottom: '10px' }}>📅 Período Filtrado</h2>
+          <div className="dashboard-card full-width" style={{ marginBottom: '20px', backgroundColor: '#dcfce7', borderLeft: '4px solid #22c55e' }}>
+            <h2 style={{ color: '#16a34a', marginBottom: '10px' }}>📅 Período Filtrado</h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '15px' }}>
               <div style={{ padding: '10px', backgroundColor: 'white', borderRadius: '4px' }}>
                 <span style={{ fontSize: '0.9rem', color: '#666', display: 'block' }}>Desde:</span>
-                <strong style={{ fontSize: '1.1rem', color: '#2196F3' }}>{new Date(filtroFechaInicio).toLocaleDateString('es-CO')}</strong>
+                <strong style={{ fontSize: '1.1rem', color: '#22c55e' }}>{new Date(filtroFechaInicio).toLocaleDateString('es-CO')}</strong>
               </div>
               <div style={{ padding: '10px', backgroundColor: 'white', borderRadius: '4px' }}>
                 <span style={{ fontSize: '0.9rem', color: '#666', display: 'block' }}>Hasta:</span>
-                <strong style={{ fontSize: '1.1rem', color: '#2196F3' }}>{new Date(filtroFechaFin).toLocaleDateString('es-CO')}</strong>
+                <strong style={{ fontSize: '1.1rem', color: '#22c55e' }}>{new Date(filtroFechaFin).toLocaleDateString('es-CO')}</strong>
               </div>
               <div style={{ padding: '10px', backgroundColor: 'white', borderRadius: '4px' }}>
                 <span style={{ fontSize: '0.9rem', color: '#666', display: 'block' }}>Duración:</span>
-                <strong style={{ fontSize: '1.1rem', color: '#2196F3' }}>
+                <strong style={{ fontSize: '1.1rem', color: '#22c55e' }}>
                   {Math.ceil((new Date(filtroFechaFin) - new Date(filtroFechaInicio)) / (1000 * 60 * 60 * 24))} días
                 </strong>
               </div>
@@ -1406,7 +1406,7 @@ const DashboardVentas = () => {
                           const participacion = totalGeneral > 0 ? (vendedor.ventas / totalGeneral) * 100 : 0;
                           return (
                             <tr key={idx} style={{ backgroundColor: idx % 2 === 0 ? '#ffffff' : '#f9f9f9' }}>
-                              <td style={{ fontWeight: '600', color: '#2196F3' }}>{vendedor.vendedor}</td>
+                              <td style={{ fontWeight: '600', color: '#22c55e' }}>{vendedor.vendedor}</td>
                               <td className="col-total">{formatCurrency(vendedor.ventas)}</td>
                               <td className="col-cantidad">-</td>
                               <td className="col-total">-</td>
@@ -1911,7 +1911,7 @@ const DashboardVentas = () => {
                   <XAxis dataKey="periodo" />
                   <YAxis tickFormatter={value => `$${value/1000}K`} />
                   <Tooltip formatter={(value) => [formatCurrency(value), 'Cobros']} />
-                  <Line type="monotone" dataKey="cobros" stroke="#2196F3" strokeWidth={3} dot={{ fill: '#2196F3', r: 4 }} />
+                  <Line type="monotone" dataKey="cobros" stroke="#22c55e" strokeWidth={3} dot={{ fill: '#22c55e', r: 4 }} />
                 </LineChart>
               </ResponsiveContainer>
             ) : (

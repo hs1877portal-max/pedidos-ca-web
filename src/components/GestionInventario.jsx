@@ -16,8 +16,8 @@ export default function GestionInventario() {
               onClick={() => setVistaActual('movimientos')}
               className={`w-full sm:w-auto py-3 px-4 sm:px-6 rounded-t-md font-medium text-xs sm:text-sm transition-colors ${
                 vistaActual === 'movimientos'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-blue-500 text-white hover:bg-blue-600'
+                  ? 'bg-green-600 text-white'
+                  : 'bg-green-500 text-white hover:bg-green-600'
               }`}
             >
               📥 Registrar Movimiento
@@ -26,8 +26,8 @@ export default function GestionInventario() {
               onClick={() => setVistaActual('historial')}
               className={`w-full sm:w-auto py-3 px-4 sm:px-6 rounded-t-md font-medium text-xs sm:text-sm transition-colors ${
                 vistaActual === 'historial'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-blue-500 text-white hover:bg-blue-600'
+                  ? 'bg-green-600 text-white'
+                  : 'bg-green-500 text-white hover:bg-green-600'
               }`}
             >
               📊 Ver Historial
@@ -36,8 +36,8 @@ export default function GestionInventario() {
               onClick={() => setVistaActual('mejores')}
               className={`w-full sm:w-auto py-3 px-4 sm:px-6 rounded-t-md font-medium text-xs sm:text-sm transition-colors ${
                 vistaActual === 'mejores'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-blue-500 text-white hover:bg-blue-600'
+                  ? 'bg-green-600 text-white'
+                  : 'bg-green-500 text-white hover:bg-green-600'
               }`}
             >
               🏆 Mejores Productos

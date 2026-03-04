@@ -7,7 +7,7 @@
 
 /* Header Styles */
 .historial-header {
-  background-color: #2563eb;
+  background-color: #16a34a;
   color: white;
   padding: 1rem;
   border-top-left-radius: 0.5rem;
@@ -69,7 +69,7 @@
 
 /* Botones */
 .btn-primario {
-  background-color: #2563eb;
+  background-color: #16a34a;
   color: white;
   padding: 0.5rem 1rem;
   border: none;
@@ -80,7 +80,7 @@
 }
 
 .btn-primario:hover {
-  background-color: #1d4ed8;
+  background-color: #15803d;
 }
 
 .btn-secundario {
@@ -142,7 +142,7 @@
 
 .busqueda-input:focus {
   outline: none;
-  border-color: #2563eb;
+  border-color: #16a34a;
   box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
 }
 

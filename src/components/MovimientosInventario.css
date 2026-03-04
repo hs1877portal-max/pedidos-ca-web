@@ -6,7 +6,7 @@
 }
 
 .movimientos-header {
-  background-color: #2563eb;
+  background-color: #16a34a;
   color: #fff;
   text-align: center;
   padding: 1.5rem;
@@ -94,7 +94,7 @@
 .form-textarea:focus,
 .search-input:focus {
   outline: none;
-  border-color: #2563eb;
+  border-color: #16a34a;
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
@@ -155,7 +155,7 @@
 }
 
 .submit-button {
-  background-color: #2563eb;
+  background-color: #16a34a;
   color: #fff;
   border: none;
   border-radius: 0.5rem;
@@ -167,7 +167,7 @@
 }
 
 .submit-button:hover:not(:disabled) {
-  background-color: #1d4ed8;
+  background-color: #15803d;
   transform: translateY(-1px);
   box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
 }

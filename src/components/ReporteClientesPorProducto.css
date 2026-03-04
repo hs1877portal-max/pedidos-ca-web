@@ -1,7 +1,7 @@
 /* Variables globales */
 :root {
   --primary-color: #4CAF50;
-  --secondary-color: #2196F3;
+  --secondary-color: #22c55e;
   --danger-color: #f44336;
   --warning-color: #ff9800;
   --success-color: #4CAF50;
@@ -413,11 +413,11 @@
 }
 
 .btn-exportar.btn-csv {
-  background: #2563eb;
+  background: #16a34a;
 }
 
 .btn-exportar.btn-csv:hover {
-  background: #1d4ed8;
+  background: #15803d;
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
@@ -520,7 +520,7 @@
 }
 
 .btn-ver-detalle:hover {
-  background: #1976D2;
+  background: #16a34a;
   transform: scale(1.1);
 }
 

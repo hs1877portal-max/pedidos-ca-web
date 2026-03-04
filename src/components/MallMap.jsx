@@ -70,7 +70,7 @@ const MallMap = () => {
     { id: '57', name: 'PEDRO MANDRIVA', phone: '', email: '', classification: '3', address: 'SABANA' },
     { id: '58', name: 'ROSENDO', phone: '', email: '', classification: '3', address: 'PARQUE' },
     { id: '59', name: 'MARCELA CRISTIAN', phone: '', email: '', classification: '2', address: 'PARQUE' },
-    { id: '60', name: 'ALEJANDRA LADY', phone: '', email: '', classification: '4', address: 'PARQUE' },
+    { id: '60', name: 'ALEXANDRA LADY', phone: '', email: '', classification: '4', address: 'PARQUE' },
     { id: '61', name: 'LEIDY YORWIS', phone: '', email: '', classification: '3', address: 'PARQUE' },
     { id: '62', name: 'JHON SALINAS', phone: '', email: '', classification: '3', address: 'SABANA' },
     { id: '63', name: 'MARCOS', phone: '', email: '', classification: '5', address: 'parque' },

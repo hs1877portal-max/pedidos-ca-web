@@ -118,7 +118,7 @@
 }
 
 .metrica-card.proximas-vencer {
-  border-left-color: #3b82f6;
+  border-left-color: #22c55e;
   background: linear-gradient(135deg, #fff 0%, #dbeafe 100%);
 }
 
@@ -172,7 +172,7 @@
 
 .alerta-proximas {
   background: #dbeafe;
-  border: 2px solid #3b82f6;
+  border: 2px solid #22c55e;
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 25px;
@@ -840,7 +840,7 @@
 }
 
 .factura-card-footer .btn-editar {
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
   color: white;
 }
 

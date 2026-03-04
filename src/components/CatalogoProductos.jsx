@@ -452,9 +452,10 @@ const ReporteInventario = ({ productos }) => {
 // Modal para validar contraseña al eliminar
 const ModalConfirmacion = ({ isOpen, onClose, onConfirm, productoNombre }) => {
   const [password, setPassword] = useState('');
+  const validPasswords = ['adrian2026', 'hector2026', 'superadmin123', 'inventario2026*', 'conta*', 'vendedor*'];
 
   const handleConfirm = () => {
-    if (password === 'edwin' || password === '777') {
+    if (validPasswords.includes(password)) {
       onConfirm();
       onClose();
     } else {

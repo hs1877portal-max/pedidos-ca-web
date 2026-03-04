@@ -162,11 +162,11 @@
 }
 
 .menu-action-btn.btn-excel {
-  background: #2563eb;
+  background: #16a34a;
 }
 
 .menu-action-btn.btn-excel:hover:not(:disabled) {
-  background: #1d4ed8;
+  background: #15803d;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
@@ -253,11 +253,11 @@
 }
 
 .btn-exportar.btn-csv {
-  background: #2563eb;
+  background: #16a34a;
 }
 
 .btn-exportar.btn-csv:hover:not(:disabled) {
-  background: #1d4ed8;
+  background: #15803d;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }

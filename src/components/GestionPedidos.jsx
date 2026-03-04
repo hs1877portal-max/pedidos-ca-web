@@ -281,7 +281,7 @@ ${pedido.direccion_entrega ? `• Dirección: ${pedido.direccion_entrega}` : ''}
 ${pedido.cliente_notas && pedido.cliente_notas !== 'Ninguna' ? `• Notas: ${pedido.cliente_notas}` : ''}
 
 ¡Gracias por tu compra! 🎉
-*comercializadora alejandra*`;
+*comercializadora alexandra*`;
 
     return encodeURIComponent(mensaje);
   };
@@ -630,7 +630,7 @@ ${pedido.cliente_notas && pedido.cliente_notas !== 'Ninguna' ? `• Notas: ${ped
   return (
     <div className="gestion-pedidos">
       <header className="header-gestion">
-        <h1>🏪 Gestión de Pedidos - comercializadora alejandra</h1>
+        <h1>🏪 Gestión de Pedidos - comercializadora alexandra</h1>
         <p>Sistema de seguimiento y preparación de pedidos</p>
       </header>
 
@@ -1115,7 +1115,7 @@ ${pedido.cliente_notas && pedido.cliente_notas !== 'Ninguna' ? `• Notas: ${ped
                     
                     <a 
                       href={validarTelefonoColombia(pedido.cliente_telefono)
-                        ? `https://wa.me/${normalizarTelefonoWhatsApp(pedido.cliente_telefono)}?text=Hola ${encodeURIComponent(pedido.cliente_nombre)}, soy de comercializadora alejandra. Tu pedido #${pedido.id} (${formatPrecio(pedido.total)}) está: ${getTextoEstado(pedido.estado)}`
+                        ? `https://wa.me/${normalizarTelefonoWhatsApp(pedido.cliente_telefono)}?text=Hola ${encodeURIComponent(pedido.cliente_nombre)}, soy de comercializadora alexandra. Tu pedido #${pedido.id} (${formatPrecio(pedido.total)}) está: ${getTextoEstado(pedido.estado)}`
                         : '#'
                       }
                       target="_blank"

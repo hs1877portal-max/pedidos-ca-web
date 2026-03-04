@@ -746,7 +746,8 @@ const FacturaDetalle = () => {
 
     // Solicitar contraseña para editar
     const password = prompt('Ingrese la contraseña para editar el abono:');
-    if (password !== 'edwin') {
+    const validPasswords = ['adrian2026', 'hector2026', 'superadmin123', 'inventario2026*', 'conta*', 'vendedor*'];
+    if (!validPasswords.includes(password || '')) {
       alert('❌ Contraseña incorrecta. No se puede editar el abono.');
       return;
     }
@@ -797,7 +798,8 @@ const FacturaDetalle = () => {
 
     // Solicitar contraseña para eliminar
     const password = prompt('Ingrese la contraseña para eliminar el abono:');
-    if (password !== 'edwin') {
+    const validPasswords = ['adrian2026', 'hector2026', 'superadmin123', 'inventario2026*', 'conta*', 'vendedor*'];
+    if (!validPasswords.includes(password || '')) {
       alert('❌ Contraseña incorrecta. No se puede eliminar el abono.');
       return;
     }

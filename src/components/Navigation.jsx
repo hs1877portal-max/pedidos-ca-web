@@ -285,7 +285,7 @@ const Navigation = () => {
       <div className="nav-container">
         <div className="nav-brand">
           <Link to="/">
-            <h2>comercializadora alejandra</h2>
+            <h2>comercializadora alexandra</h2>
           </Link>
           {user && <span className="user-role">{user.role}</span>}
           

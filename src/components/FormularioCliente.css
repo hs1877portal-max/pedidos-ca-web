@@ -61,7 +61,7 @@
 .form-group textarea:focus,
 .form-group select:focus {
   outline: none;
-  border-color: #2563eb;
+  border-color: #16a34a;
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
@@ -102,12 +102,12 @@
 }
 
 .btn-submit {
-  background-color: #2563eb;
+  background-color: #16a34a;
   color: white;
 }
 
 .btn-submit:hover {
-  background-color: #1d4ed8;
+  background-color: #15803d;
 }
 
 .btn-submit:disabled {
@@ -136,7 +136,7 @@
   width: 20px;
   height: 20px;
   border: 3px solid #e5e7eb;
-  border-top-color: #2563eb;
+  border-top-color: #16a34a;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
