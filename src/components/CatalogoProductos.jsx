@@ -8,8 +8,8 @@ import { getProductSalesAndRecommendations, mergeRecommendationsIntoProducts } f
 // Componente para subir imágenes a Cloudinary
 const CloudinaryUpload = ({ onImageUpload }) => {
   const [uploading, setUploading] = useState(false);
-  const cloudName = (import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || '').trim();
-  const uploadPreset = (import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET || '').trim();
+  const cloudName = (import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || 'djsdgctm6').trim();
+  const uploadPreset = (import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET || 'catalogo_productos_web').trim();
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];

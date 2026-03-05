@@ -6,8 +6,8 @@ import './CatalogoProductos.css';
 const CloudinaryUpload = ({ onImageUpload }) => {
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
-  const cloudName = (import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || '').trim();
-  const uploadPreset = (import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET || '').trim();
+  const cloudName = (import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || 'djsdgctm6').trim();
+  const uploadPreset = (import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET || 'catalogo_productos_web').trim();
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
