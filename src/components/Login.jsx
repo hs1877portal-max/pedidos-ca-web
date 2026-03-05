@@ -73,7 +73,7 @@ const Login = () => {
     <div className="login-container">
       <div className="login-card">
         <div className="login-header">
-          <h1>comercializadora alexandra Hermanos Marín</h1>
+          <h1>COMERCIALIZADORA ALEXANDRA HERMANOS MARÍN</h1>
           <p>Sistema de pedidos y catálogo digital</p>
         </div>
         

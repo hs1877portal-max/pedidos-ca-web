@@ -32,6 +32,16 @@ const CatalogoClientes = () => {
 
   const location = useLocation();
 
+  const normalizarTelefonoColombia = (telefono = '') => {
+    let soloDigitos = telefono.replace(/\D/g, '');
+
+    if (soloDigitos.startsWith('57') && soloDigitos.length > 10) {
+      soloDigitos = soloDigitos.slice(2);
+    }
+
+    return soloDigitos.slice(0, 10);
+  };
+
   // Cargar productos desde Supabase
   useEffect(() => {
     const cargarProductos = async () => {
@@ -69,7 +79,7 @@ const CatalogoClientes = () => {
           setClienteInfo(prev => ({
             ...prev,
             nombre: params.get('nombre') || '',
-            telefono: params.get('telefono') || ''
+            telefono: normalizarTelefonoColombia(params.get('telefono') || '')
           }));
         }
       } catch (error) {
@@ -86,6 +96,15 @@ const CatalogoClientes = () => {
   // Handlers
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+
+    if (name === 'telefono') {
+      setClienteInfo(prev => ({
+        ...prev,
+        telefono: normalizarTelefonoColombia(value)
+      }));
+      return;
+    }
+
     setClienteInfo(prev => ({
       ...prev,
       [name]: value
@@ -287,14 +306,14 @@ const CatalogoClientes = () => {
     }
     
     // ✅ FIX 2: Validación mejorada de teléfono - mínimo 10 dígitos
-    const soloDigitos = clienteInfo.telefono.replace(/\D/g, '');
-    if (soloDigitos.length < 10) {
-      setError(`❌ Teléfono inválido. Encontrados ${soloDigitos.length} dígitos, se requieren mínimo 10`);
+    const soloDigitos = normalizarTelefonoColombia(clienteInfo.telefono);
+    if (soloDigitos.length !== 10) {
+      setError('❌ Teléfono inválido. Debe tener exactamente 10 dígitos.');
       return false;
     }
-    
-    if (soloDigitos.length > 15) {
-      setError('❌ Teléfono muy largo. Máximo 15 dígitos');
+
+    if (!soloDigitos.startsWith('3')) {
+      setError('❌ Teléfono inválido. Debe ser un celular colombiano que inicie con 3.');
       return false;
     }
     
@@ -376,7 +395,7 @@ const CatalogoClientes = () => {
       setError(null); // Limpiar errores anteriores
 
       // Preparar mensaje para WhatsApp
-      const numerosWhatsApp = ['573002945085', '573004583117']; // Dos números de WhatsApp
+      const numerosWhatsApp = ['573146577662']; // Número WhatsApp (Colombia)
       
       let mensaje = `*¡NUEVO PEDIDO!*%0A%0A`;
       mensaje += `*Cliente:* ${clienteInfo.nombre}%0A`;
@@ -403,7 +422,7 @@ const CatalogoClientes = () => {
       mensaje += `*📅 FECHA:* ${new Date().toLocaleDateString('es-CO')}%0A%0A`;
       mensaje += `_Pedido generado desde Catálogo Digital_`;
 
-      // Enviar a los dos números de WhatsApp
+      // Enviar al número de WhatsApp configurado
       numerosWhatsApp.forEach((numero, index) => {
         const url = `https://api.whatsapp.com/send?phone=${numero}&text=${mensaje}`;
         setTimeout(() => {
@@ -885,11 +904,15 @@ const CatalogoClientes = () => {
                           name="telefono"
                           value={clienteInfo.telefono}
                           onChange={handleInputChange}
+                          inputMode="numeric"
+                          pattern="[0-9]*"
+                          maxLength={10}
+                          autoComplete="tel-national"
                           placeholder="Ej: 3001234567"
                           className={!clienteInfo.telefono.trim() ? 'input-error' : ''}
                         />
                         {!clienteInfo.telefono.trim() && <span className="error-text">Campo obligatorio</span>}
-                        <small>El teléfono debe tener al menos 10 dígitos</small>
+                        <small>Ingresa un celular colombiano de 10 dígitos (ej: 3001234567)</small>
                       </div>
                       <div className="form-group">
                         <label htmlFor="direccion-cliente">Dirección (Opcional)</label>
