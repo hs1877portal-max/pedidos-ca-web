@@ -68,7 +68,6 @@ const Navigation = () => {
             { path: '/facturas', label: 'Facturas Guardadas', icon: '📄' },
             { path: '/catalogo-clientes', label: 'Enviar Catálogo', icon: '📤' },
             { path: '/clientes', label: 'Gestión Clientes', icon: '👤' },
-            { path: '/mapa-locales', label: 'Mapa de Locales', icon: '🗺️' },
             { path: '/rutas-cobro', label: 'Rutas de Cobro', icon: '🚗' }
           ]
         },
@@ -93,10 +92,7 @@ const Navigation = () => {
           icon: '💰', 
           tipo: 'grupo',
           submenu: [
-            { path: '/gastos', label: 'Gestión de Gastos', icon: '💸' },
-            { path: '/gastos-empresa', label: 'Gastos de Empresa', icon: '📊' },
-            { path: '/cuentas-por-pagar', label: 'Cuentas por Pagar', icon: '📄' },
-            { path: '/dashboard-contabilidad', label: 'Dashboard Contabilidad', icon: '📊' }
+            { path: '/cuentas-por-pagar', label: 'Cuentas por Pagar', icon: '📄' }
           ]
         },
         // BODEGA - Grupo
@@ -128,7 +124,6 @@ const Navigation = () => {
             { path: '/facturas', label: 'Facturas Guardadas', icon: '📄' },
             { path: '/catalogo-clientes', label: 'Enviar Catálogo', icon: '📤' },
             { path: '/clientes', label: 'Gestión Clientes', icon: '👤' },
-            { path: '/mapa-locales', label: 'Mapa de Locales', icon: '🗺️' },
             { path: '/rutas-cobro', label: 'Rutas de Cobro', icon: '🚗' }
           ]
         },
@@ -152,10 +147,7 @@ const Navigation = () => {
           icon: '💰', 
           tipo: 'grupo',
           submenu: [
-            { path: '/gastos', label: 'Gestión de Gastos', icon: '💸' },
-            { path: '/gastos-empresa', label: 'Gastos de Empresa', icon: '📊' },
-            { path: '/cuentas-por-pagar', label: 'Cuentas por Pagar', icon: '📄' },
-            { path: '/dashboard-contabilidad', label: 'Dashboard Contabilidad', icon: '📊' }
+            { path: '/cuentas-por-pagar', label: 'Cuentas por Pagar', icon: '📄' }
           ]
         },
         // BODEGA - Grupo
@@ -176,12 +168,9 @@ const Navigation = () => {
     // Contabilidad (caro) - Ver facturas, reportes, gestión de pedidos, catálogo (lectura)
     if (user.role === 'contabilidad') {
       return [
-        { path: '/dashboard-contabilidad', label: 'Dashboard Contabilidad', icon: '📊', tipo: 'simple' },
         { path: '/facturas', label: 'Facturas Guardadas', icon: '📄', tipo: 'simple' },
         { path: '/catalogo-clientes', label: 'Enviar Catálogo', icon: '📤', tipo: 'simple' },
         { path: '/reportes-cobros', label: 'Reportes de Cobros', icon: '📈', tipo: 'simple' },
-        { path: '/gastos', label: 'Gestión de Gastos', icon: '💰', tipo: 'simple' },
-        { path: '/gastos-empresa', label: 'Gastos de la Empresa', icon: '💸', tipo: 'simple' },
         { path: '/cuentas-por-pagar', label: 'Gastos Empresa (Proveedores)', icon: '📊', tipo: 'simple' },
         { path: '/rutas-cobro', label: 'Rutas de Cobro', icon: '🚗', tipo: 'simple' },
         { path: '/gestion-pedidos', label: 'Gestión Pedidos', icon: '🛒', tipo: 'simple' },

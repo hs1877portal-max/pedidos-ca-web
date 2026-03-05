@@ -14,12 +14,8 @@ import NotFound from './components/NotFound';
 import Navigation from './components/Navigation';
 import GestionInventario from './components/GestionInventario';
 import DashboardVentas from './components/DashboardVentas';
-import MallMap from './components/MallMap';
 import RutasCobro from './components/RutasCobro';
-import GastosScreen from './components/GastosScreen';
-import GastosEmpresa from './components/GastosEmpresa';
 import CuentasPorPagar from './components/CuentasPorPagar';
-import ContabilidadScreen from './components/ContabilidadScreen';
 import HistorialMovimientos from './components/HistorialMovimientos';
 import AuditoriaProductos from './components/AuditoriaProductos';
 import ReporteClientesPorProducto from './components/ReporteClientesPorProducto';
@@ -281,13 +277,10 @@ function App() {
               </ProtectedRoute>
             } />
             
-            {/* Ruta para el Mapa de Locales */}
+            {/* Ruta temporal deshabilitada: Mapa de Locales */}
             <Route path="/mapa-locales" element={
-              <ProtectedRoute requiredRoles={['superadmin', 'admin']}>
-                <>
-                  <PageMeta title="Mapa de Locales - EBS" description="Mapa interactivo de locales y ubicaciones" />
-                  <MallMap />
-                </>
+              <ProtectedRoute>
+                <Navigate to="/dashboard" replace />
               </ProtectedRoute>
             } />
             
@@ -319,13 +312,10 @@ function App() {
               </ProtectedRoute>
             } />
 
-            {/* Ruta para Gestión de Gastos */}
+            {/* Ruta temporal deshabilitada: Gestión de Gastos */}
             <Route path="/gastos" element={
-              <ProtectedRoute requiredRoles={['superadmin', 'admin', 'contabilidad', 'vendedor']}>
-                <>
-                  <PageMeta title="Gestión de Gastos - EBS" description="Control y análisis de gastos" />
-                  <GastosScreen />
-                </>
+              <ProtectedRoute>
+                <Navigate to="/dashboard" replace />
               </ProtectedRoute>
             } />
 
@@ -339,23 +329,17 @@ function App() {
               </ProtectedRoute>
             } />
 
-            {/* Ruta para Gastos de la Empresa */}
+            {/* Ruta temporal deshabilitada: Gastos de la Empresa */}
             <Route path="/gastos-empresa" element={
-              <ProtectedRoute requiredRoles={['superadmin', 'admin', 'contabilidad']}>
-                <>
-                  <PageMeta title="Gastos de la Empresa - EBS" description="Control de gastos operacionales" />
-                  <GastosEmpresa />
-                </>
+              <ProtectedRoute>
+                <Navigate to="/dashboard" replace />
               </ProtectedRoute>
             } />
 
-            {/* Ruta para Dashboard de Contabilidad */}
+            {/* Ruta temporal deshabilitada: Dashboard de Contabilidad */}
             <Route path="/dashboard-contabilidad" element={
-              <ProtectedRoute requiredRoles={['superadmin', 'admin', 'contabilidad', 'vendedor']}>
-                <>
-                  <PageMeta title="Dashboard de Contabilidad - EBS" description="Panel de control contable" />
-                  <ContabilidadScreen />
-                </>
+              <ProtectedRoute>
+                <Navigate to="/dashboard" replace />
               </ProtectedRoute>
             } />
             

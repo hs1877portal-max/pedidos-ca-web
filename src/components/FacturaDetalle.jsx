@@ -165,7 +165,7 @@ const FacturaDetalle = () => {
           <title>Cuenta de Cobro #${factura.id.toString().padStart(6, '0')}</title>
           <style>
             @page {
-              size: letter landscape; /* Tamaño oficio en horizontal */
+              size: letter portrait;
               margin: 0.5cm;
             }
             body {
@@ -176,11 +176,11 @@ const FacturaDetalle = () => {
               line-height: 1.2;
             }
             .pagina-oficio {
-              width: 27.94cm; /* Ancho oficio en horizontal */
-              height: 21.59cm; /* Alto oficio en horizontal */
+              width: 21.59cm;
+              height: 27.94cm;
               display: grid;
-              grid-template-columns: 1fr 1fr;
-              gap: 0.5cm;
+              grid-template-columns: 1fr;
+              gap: 0;
               page-break-after: always;
             }
             .seccion-cuenta {
@@ -437,18 +437,16 @@ const FacturaDetalle = () => {
         </head>
         <body>
           <div class="pagina-oficio">
-              <!-- ORIGINAL - PARA EL ARCHIVO -->
+              <!-- COPIA ÚNICA -->
             <div class="seccion-cuenta">
-              <div class="titulo-seccion">ORIGINAL - PARA EL ARCHIVO</div>
+              <div class="titulo-seccion">REMISIÓN</div>
               <div class="encabezado">
                 <div class="empresa-info">
-                  <div><strong>SAMARITANO EBS</strong></div>
+                  <div><strong>COMERCIALIZADORA ALEXANDRA</strong></div>
                   <div>REMISIÓN</div>
                 </div>
                 <div class="fecha-wrapper">
                   <div class="fecha">${formatearFecha(factura.fecha)}</div>
-                  <div class="plazo">Plazo a 30 dias<span class="check-box"></span></div>
-                  <div class="plazo-contado">De contado<span class="check-box"></span></div>
                 </div>
               </div>
               
@@ -520,96 +518,9 @@ const FacturaDetalle = () => {
               
               <div class="footer">
                 <div>Gracias por su preferencia.</div>
-                <div class="footer-payment">NEQUI, TU LLAVE <span class="llave-nequi">3209105993</span>, CUENTA DAVIVIENDA # 474970011893</div>
-                <div class="logo">EBS - Sistema de Ebs-Hermanos Marin</div>
-              </div>
-            </div>
-            
-              <!-- COPIA - PARA EL CLIENTE -->
-            <div class="seccion-cuenta">
-              <div class="titulo-seccion">COPIA - PARA EL CLIENTE</div>
-              <div class="encabezado">
-                <div class="empresa-info">
-                  <div><strong>SAMARITANO EBS</strong></div>
-                  <div>REMISIÓN</div>
-                </div>
-                <div class="fecha-wrapper">
-                  <div class="fecha">${formatearFecha(factura.fecha)}</div>
-                  <div class="plazo">Plazo a 30 dias<span class="check-box"></span></div>
-                  <div class="plazo-contado">De contado<span class="check-box"></span></div>
-                </div>
-              </div>
-              
-              <div class="numero-cuenta">REMISIÓN #${factura.id.toString().padStart(6, '0')}</div>
-              
-              <div class="info-cliente-vendedor">
-                <div class="info-item">
-                  <h4>CLIENTE:</h4>
-                  <p class="cliente-nombre">${factura.cliente}</p>
-                  <h4>DIRECCIÓN:</h4>
-                  <p class="direccion-dato">${factura.direccion || 'NO ESPECIFICADO'}</p>
-                </div>
-                <div class="info-item">
-                  <h4>VENDEDOR:</h4>
-                  <p class="vendedor-nombre">${factura.vendedor}</p>
-                  <h4>TELÉFONO:</h4>
-                  <p class="telefono-dato">${factura.telefono || 'NO ESPECIFICADO'}</p>
-                </div>
-              </div>
-              
-              <table class="tabla-productos">
-                <thead>
-                  <tr>
-                    <th class="col-producto">PRODUCTO</th>
-                    <th class="col-cantidad">CANT</th>
-                    <th class="col-precio">PRECIO UNIT.</th>
-                    <th class="col-subtotal">SUBTOTAL</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  ${factura.productos.map(producto => `
-                    <tr>
-                      <td class="col-producto">${producto.nombre}</td>
-                      <td class="col-cantidad">${producto.cantidad}</td>
-                      <td class="col-precio">${formatearMonedaImpresion(producto.precio)}</td>
-                      <td class="col-subtotal">${formatearMonedaImpresion(producto.cantidad * producto.precio)}</td>
-                    </tr>
-                  `).join('')}
-                </tbody>
-              </table>              <div class="total-letras">
-                <strong>SON: ${convertirNumeroALetras(Math.round(factura.total))}</strong>
-              </div>
-              
-              <div class="resumen-total">
-                <div class="resumen-item">
-                  <div>PRODUCTOS</div>
-                  <div>${factura.productos.length}</div>
-                </div>
-                <div class="resumen-item">
-                  <div>TOTAL</div>
-                  <div>${formatearMonedaImpresion(factura.total)}</div>
-                </div>
-                <div class="resumen-item">
-                  <div>ABONADO</div>
-                  <div>${formatearMonedaImpresion(calcularTotalAbonado())}</div>
-                </div>
-                <div class="resumen-item resumen-saldo">
-                  <div>SALDO</div>
-                  <div class="saldo-valor">${formatearMonedaImpresion(calcularSaldoPendiente())}</div>
-                </div>
-              </div>
-              
-              <div class="estado-firma">
-                <div class="firma">
-                  <div class="firma-linea">Firma del cliente</div>
-                </div>
-                <div class="estado">ESTADO: ${estaPagada() ? 'PAGADA' : 'PENDIENTE'}</div>
-              </div>
-              
-              <div class="footer">
-                <div>Gracias por su preferencia.</div>
-                <div class="footer-payment">NEQUI, TU LLAVE <span class="llave-nequi">3209105993</span>, CUENTA DAVIVIENDA # 474970011893</div>
-                <div class="logo">EBS - Sistema de Ebs-Hermanos Marin</div>
+                <div class="footer-payment">TELÉFONO: <span class="llave-nequi">3146577662</span></div>
+                <div class="footer-payment">DIRECCIÓN: CRA 18 # 12 -47</div>
+                <div class="logo">COMERCIALIZADORA ALEXANDRA</div>
               </div>
             </div>
           </div>

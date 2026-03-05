@@ -28,7 +28,7 @@ describe('CatalogoClientes - Validaciones de Sistema', () => {
       const clienteInfo = {
         nombre: '', // ❌ VACÍO
         telefono: '3001234567',
-        vendedor: 'Edwin Marin'
+        vendedor: 'Hector S.'
       };
       
       const validar = (info) => info.nombre.trim() !== '';
@@ -39,7 +39,7 @@ describe('CatalogoClientes - Validaciones de Sistema', () => {
       const clienteInfo = {
         nombre: 'Juan Pérez',
         telefono: '', // ❌ VACÍO
-        vendedor: 'Edwin Marin'
+        vendedor: 'Hector S.'
       };
       
       const validar = (info) => info.telefono.trim() !== '';

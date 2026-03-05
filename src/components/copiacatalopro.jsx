@@ -6,8 +6,8 @@ import './CatalogoProductos.css';
 const CloudinaryUpload = ({ onImageUpload }) => {
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
-  const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
-  const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+  const cloudName = (import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || '').trim();
+  const uploadPreset = (import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET || '').trim();
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
@@ -25,7 +25,11 @@ const CloudinaryUpload = ({ onImageUpload }) => {
     }
 
     if (!cloudName || !uploadPreset) {
-      alert('Falta configuración de Cloudinary (VITE_CLOUDINARY_CLOUD_NAME y VITE_CLOUDINARY_UPLOAD_PRESET).');
+      const missingVars = [
+        !cloudName ? 'VITE_CLOUDINARY_CLOUD_NAME' : null,
+        !uploadPreset ? 'VITE_CLOUDINARY_UPLOAD_PRESET' : null
+      ].filter(Boolean);
+      alert(`Falta configuración de Cloudinary: ${missingVars.join(' y ')}.`);
       return;
     }
 
@@ -47,6 +51,10 @@ const CloudinaryUpload = ({ onImageUpload }) => {
           },
         }
       );
+
+      if (!response?.data?.secure_url) {
+        throw new Error('No se pudo subir la imagen a Cloudinary');
+      }
 
       onImageUpload({
         imagenUrl: response.data.secure_url,

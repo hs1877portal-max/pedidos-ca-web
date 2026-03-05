@@ -3,6 +3,8 @@ import { useLocation } from 'react-router-dom';
 import { supabase } from './supabaseClient';
 import './CatalogoClientes.css';
 
+const VENDEDOR_DEFAULT = 'Hector S.';
+
 const CatalogoClientes = () => {
   const [productos, setProductos] = useState([]);
   const [productosSeleccionados, setProductosSeleccionados] = useState([]);
@@ -14,9 +16,8 @@ const CatalogoClientes = () => {
     telefono: '',
     direccion: '',
     notas: '',
-    vendedor: ''
+    vendedor: VENDEDOR_DEFAULT
   });
-  const vendedores = ['Edwin Marin', 'Fredy Marin', 'Fabian Marin'];
   const [mostrarCarrito, setMostrarCarrito] = useState(false);
   const [showQuantityNotification, setShowQuantityNotification] = useState(false);
   const [categorias, setCategorias] = useState(['Todas']);
@@ -269,7 +270,7 @@ const CatalogoClientes = () => {
   // Validar información del cliente
   const validarCliente = () => {
     // ✅ FIX 1: Validar vendedor es obligatorio
-    const vendedoresValidos = ['Edwin Marin', 'Fredy Marin', 'Fabian Marin'];
+    const vendedoresValidos = [VENDEDOR_DEFAULT, 'V2', 'V3'];
     if (!clienteInfo.vendedor?.trim() || !vendedoresValidos.includes(clienteInfo.vendedor.trim())) {
       setError('❌ Por favor selecciona un vendedor válido');
       return false;
@@ -309,7 +310,7 @@ const CatalogoClientes = () => {
       telefono: '',
       direccion: '',
       notas: '',
-      vendedor: ''
+      vendedor: VENDEDOR_DEFAULT
     }));
     setPedidoEnviado(false);
     setNumeroPedido(null);
@@ -670,7 +671,7 @@ const CatalogoClientes = () => {
         </button>
         
         <div className="brand-text">
-          EBS Hermanos Marin - ING. Edwin Marin 3004583117
+          EBS Hermanos Marin - ING. Hector S. 3004583117
         </div>
       </div>
 
@@ -856,19 +857,12 @@ const CatalogoClientes = () => {
                     <div className="cliente-form">
                       <div className="form-group">
                         <label htmlFor="vendedor-cliente">Vendedor *</label>
-                        <select
+                        <input
                           id="vendedor-cliente"
                           name="vendedor"
                           value={clienteInfo.vendedor}
-                          onChange={handleInputChange}
-                          className={!clienteInfo.vendedor.trim() ? 'input-error' : ''}
-                        >
-                          <option value="">Seleccione vendedor</option>
-                          {vendedores.map((v) => (
-                            <option key={v} value={v}>{v}</option>
-                          ))}
-                        </select>
-                        {!clienteInfo.vendedor.trim() && <span className="error-text">Campo obligatorio</span>}
+                          readOnly
+                        />
                       </div>
                       <div className="form-group">
                         <label htmlFor="nombre-cliente">Nombre Completo *</label>

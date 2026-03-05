@@ -4,6 +4,23 @@ import { supabase } from '../lib/supabase';
 import * as XLSX from 'xlsx';
 
 const CuentasPorPagar = () => {
+  const [fechaInicioLimpio] = useState(() => {
+    const storageKey = 'cxp_inicio_limpio_desde';
+    const nowIso = new Date().toISOString();
+
+    try {
+      const valorGuardado = localStorage.getItem(storageKey);
+      if (valorGuardado) {
+        return new Date(valorGuardado);
+      }
+      localStorage.setItem(storageKey, nowIso);
+      return new Date(nowIso);
+    } catch (error) {
+      console.warn('No se pudo leer/escribir localStorage para inicio limpio CxP:', error);
+      return new Date(nowIso);
+    }
+  });
+
   // Estados principales
   const [vistaActual, setVistaActual] = useState('dashboard'); // dashboard, proveedores, facturas, pagos
   const [vistaFacturas, setVistaFacturas] = useState('detallada'); // detallada, compacta
@@ -77,8 +94,13 @@ const CuentasPorPagar = () => {
       
       if (error) throw error;
       
+      const proveedoresFiltrados = (data || []).filter(p => {
+        if (!p?.created_at) return false;
+        return new Date(p.created_at) >= fechaInicioLimpio;
+      });
+
       // Convertir nombres de columnas de snake_case a camelCase
-      const proveedoresFormateados = data.map(p => ({
+      const proveedoresFormateados = proveedoresFiltrados.map(p => ({
         id: p.id,
         nombre: p.nombre,
         nit: p.nit,
@@ -107,8 +129,13 @@ const CuentasPorPagar = () => {
       
       if (error) throw error;
       
+      const facturasFiltradas = (data || []).filter(f => {
+        if (!f?.created_at) return false;
+        return new Date(f.created_at) >= fechaInicioLimpio;
+      });
+
       // Convertir nombres de columnas de snake_case a camelCase
-      const facturasFormateadas = data.map(f => {
+      const facturasFormateadas = facturasFiltradas.map(f => {
         let total = parseFloat(f.total);
         let subtotal = parseFloat(f.subtotal);
         let iva = parseFloat(f.iva);
@@ -158,8 +185,13 @@ const CuentasPorPagar = () => {
       
       if (error) throw error;
       
+      const pagosFiltrados = (data || []).filter(p => {
+        if (!p?.created_at) return false;
+        return new Date(p.created_at) >= fechaInicioLimpio;
+      });
+
       // Convertir nombres de columnas de snake_case a camelCase
-      const pagosFormateados = data.map(p => ({
+      const pagosFormateados = pagosFiltrados.map(p => ({
         id: p.id,
         facturaId: p.factura_id,
         fecha: p.fecha,
@@ -184,7 +216,7 @@ const CuentasPorPagar = () => {
     cargarProveedores();
     cargarFacturas();
     cargarPagos();
-  }, []);
+  }, [fechaInicioLimpio]);
 
   // Calcular días de vencimiento
   const calcularDiasVencimiento = (fechaVencimiento) => {

@@ -8,8 +8,8 @@ import { getProductSalesAndRecommendations, mergeRecommendationsIntoProducts } f
 // Componente para subir imágenes a Cloudinary
 const CloudinaryUpload = ({ onImageUpload }) => {
   const [uploading, setUploading] = useState(false);
-  const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
-  const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+  const cloudName = (import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || '').trim();
+  const uploadPreset = (import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET || '').trim();
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
@@ -26,7 +26,11 @@ const CloudinaryUpload = ({ onImageUpload }) => {
     }
 
     if (!cloudName || !uploadPreset) {
-      alert('Falta configuración de Cloudinary (VITE_CLOUDINARY_CLOUD_NAME y VITE_CLOUDINARY_UPLOAD_PRESET).');
+      const missingVars = [
+        !cloudName ? 'VITE_CLOUDINARY_CLOUD_NAME' : null,
+        !uploadPreset ? 'VITE_CLOUDINARY_UPLOAD_PRESET' : null
+      ].filter(Boolean);
+      alert(`Falta configuración de Cloudinary: ${missingVars.join(' y ')}.`);
       return;
     }
 
@@ -45,6 +49,12 @@ const CloudinaryUpload = ({ onImageUpload }) => {
       );
 
       const data = await response.json();
+
+      if (!response.ok || !data?.secure_url) {
+        const cloudinaryError = data?.error?.message || 'No se pudo subir la imagen a Cloudinary';
+        throw new Error(cloudinaryError);
+      }
+
       onImageUpload({
         imagenUrl: data.secure_url,
         imagenPublicId: data.public_id
