@@ -155,8 +155,18 @@ const FacturaDetalle = () => {
   };
 
   const imprimirFactura = () => {
-    // Abrir ventana de impresión con el diseño específico para papel oficio horizontal
-    const ventanaImpresion = window.open('', '_blank', 'width=1000,height=800');
+    // Abrir ventana de impresión en formato ticket térmico (78mm)
+    const ventanaImpresion = window.open('', '_blank', 'width=420,height=900');
+    const fechaTicket = new Date(factura.fecha || Date.now());
+    const fechaTexto = fechaTicket.toLocaleDateString('es-CO');
+    const horaTexto = fechaTicket.toLocaleTimeString('es-CO', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+    const nitCliente = factura.nit || factura.identificacion || '2222222222222';
+    const direccionCliente = factura.direccion || 'NO ESPECIFICADO';
+    const telefonoCliente = factura.telefono || 'NO ESPECIFICADO';
     
     const contenidoImpresion = `
       <!DOCTYPE html>
@@ -165,364 +175,204 @@ const FacturaDetalle = () => {
           <title>Cuenta de Cobro #${factura.id.toString().padStart(6, '0')}</title>
           <style>
             @page {
-              size: letter portrait;
-              margin: 0.5cm;
+              size: 78mm auto;
+              margin: 2mm;
             }
             body {
-              font-family: Arial, sans-serif;
+              font-family: "Arial", "Helvetica", sans-serif;
               margin: 0;
-              padding: 0;
-              font-size: 10px;
-              line-height: 1.2;
+              padding: 2mm;
+              font-size: 11px;
+              line-height: 1.25;
+              color: #000;
             }
-            .pagina-oficio {
-              width: 21.59cm;
-              height: 27.94cm;
-              display: grid;
-              grid-template-columns: 1fr;
-              gap: 0;
-              page-break-after: always;
+            .ticket {
+              width: 78mm;
+              max-width: 78mm;
+              margin: 0 auto;
             }
-            .seccion-cuenta {
-              border: 1px solid #000;
-              padding: 0.3cm;
-              box-sizing: border-box;
-              display: flex;
-              flex-direction: column;
-              height: 100%;
+            .header {
+              text-align: left;
+              margin-bottom: 6px;
             }
-            .titulo-seccion {
-              text-align: center;
+            .empresa {
+              font-size: 26px;
               font-weight: bold;
-              margin-bottom: 0.2cm;
-              border-bottom: 1px solid #000;
-              padding-bottom: 0.08cm;
-              font-size: 10px;
+              letter-spacing: 0.2px;
+              text-transform: uppercase;
             }
-            .encabezado {
+            .meta {
+              font-size: 12px;
+              margin-top: 2px;
+            }
+            .doc-title {
+              font-size: 15px;
+              font-weight: 800;
+              margin: 8px 0 4px;
+              text-transform: uppercase;
+            }
+            .separator {
+              border-top: 1px dashed #000;
+              margin: 6px 0;
+            }
+            .row {
               display: flex;
               justify-content: space-between;
-              margin-bottom: 0.15cm;
-              align-items: flex-start;
+              gap: 8px;
+              align-items: baseline;
             }
-            .numero-cuenta {
-              font-weight: bold;
-              font-size: 15px !important;
-              margin-bottom: 0.2cm;
-              text-align: center;
-              margin-top: -0.05cm;
-            }
-            .fecha {
-              font-size: 9px;
+            .row div:first-child {
               font-weight: 700;
             }
-            .fecha-wrapper {
+            .row div:last-child {
               text-align: right;
-              display: flex;
-              flex-direction: column;
-              gap: 0.05cm;
-              align-items: flex-end;
             }
-            .plazo {
-              font-size: 8px;
-              font-weight: bold;
-              text-transform: uppercase;
-              line-height: 1.2;
-              display: flex;
-              align-items: center;
+            .subtle {
+              font-weight: 400 !important;
             }
-            .plazo-contado {
-              font-size: 8px;
-              font-weight: bold;
-              text-transform: uppercase;
-              line-height: 1.1;
-              display: flex;
-              align-items: center;
-            }
-            .info-cliente-vendedor {
-              display: grid;
-              grid-template-columns: 1fr 1fr;
-              gap: 0.15cm;
-              margin-bottom: 0.35cm;
-            }
-            .info-item h4 {
-              margin: 0 0 0.02cm 0;
-              font-size: 13px !important;
-              font-weight: normal;
-            }
-            .info-item p {
-              margin: 0;
-              border-bottom: 1px solid #ddd;
-              padding-bottom: 0.02cm;
-              min-height: 0.3cm;
-              font-size: 7px;
-            }
-            .cliente-nombre,
-            .vendedor-nombre,
-            .direccion-dato,
-            .telefono-dato {
-              font-size: 12px !important;
-              font-weight: normal;
-              text-transform: uppercase;
-              line-height: 1.2;
-            }
-            .numero-cuenta {
-              font-size: 15px !important;
-              font-weight: 900;
-            }
-            .tabla-productos {
+            table {
               width: 100%;
               border-collapse: collapse;
-              margin-bottom: 0.2cm;
-              table-layout: fixed;
-              flex-grow: 1;
-              min-height: auto;
+              margin-top: 6px;
             }
-            .tabla-productos th, .tabla-productos td {
-              border: 1px solid #000;
-              padding: 0.12cm 0.1cm;
+            th,
+            td {
+              font-size: 11px;
+              padding: 2px 0;
+              vertical-align: top;
+            }
+            th {
+              font-size: 12px;
+              font-weight: 800;
+              text-transform: uppercase;
+              border-bottom: 1px solid #000;
+            }
+            .col-art {
+              width: 52%;
               text-align: left;
-              font-size: 9px;
-              word-wrap: break-word;
-              height: auto;
-              vertical-align: middle;
-              line-height: 1.2;
             }
-            .tabla-productos th {
-              background-color: #f0f0f0;
-              font-weight: bold;
-              height: auto;
-              padding: 0.12cm 0.1cm;
-              font-size: 8px;
-            }
-            .tabla-productos tbody tr {
-              height: auto;
-            }
-            .tabla-productos .col-producto {
-              width: 50%;
-            }
-            .tabla-productos .col-cantidad {
-              width: 15%;
-              text-align: center;
-            }
-            .tabla-productos .col-precio {
+            .col-und {
               width: 18%;
               text-align: right;
             }
-            .tabla-productos .col-subtotal {
-              width: 17%;
+            .col-valor {
+              width: 30%;
               text-align: right;
             }
-            .total-letras {
-              margin: 0.12cm 0;
-              padding: 0.1cm;
-              border: 1px solid #000;
-              background-color: #f9f9f9;
-              font-size: 8px;
-              text-align: center;
-              font-weight: bold;
-              line-height: 1;
+            .producto-nombre {
+              text-transform: uppercase;
+              font-weight: 700;
             }
-            .resumen-total {
-              display: grid;
-              grid-template-columns: 1fr 1fr 1fr 1fr;
-              gap: 0.1cm;
-              margin-top: 0.12cm;
-              margin-bottom: 0.12cm;
-              font-weight: bold;
-              text-align: center;
-              font-size: 7px;
+            .resumen {
+              margin-top: 8px;
             }
-            .resumen-item {
-              border: 1px solid #000;
-              padding: 0.06cm 0.05cm;
-              background-color: #f0f0f0;
-              line-height: 1;
-            }
-            .resumen-item.resumen-saldo {
-              background-color: #ffecec;
-              border: 1px solid #000;
-            }
-            .saldo-valor {
-              font-size: 10px;
-              font-weight: 900;
-            }
-            .estado {
-              text-align: center;
-              margin-top: 0.1cm;
-              font-weight: bold;
-              font-size: 8px;
-              padding: 0.07cm;
-              border: 1px solid #000;
-              background-color: ${estaPagada() ? '#d4edda' : '#fff3cd'};
-              color: ${estaPagada() ? '#155724' : '#856404'};
-              line-height: 1;
-            }
-            .estado-firma {
+            .resumen .linea {
               display: flex;
               justify-content: space-between;
-              align-items: flex-end;
-              gap: 0.2cm;
-              margin-top: 0.1cm;
+              margin: 1px 0;
             }
-            .firma {
-              flex: 1;
-              display: flex;
-              justify-content: flex-start;
-            }
-            .firma-linea {
-              width: 100%;
-              max-width: 12cm;
-              border-top: 1px solid #000;
-              text-align: center;
-              padding-top: 0.7cm;
-              font-size: 7px;
-            }
-            .check-box {
-              width: 0.35cm;
-              height: 0.35cm;
-              border: 1px solid #000;
-              display: inline-block;
-              margin-left: 0.12cm;
-              box-sizing: border-box;
-            }
-            .footer {
-              text-align: center;
-              margin-top: 0.1cm;
-              font-size: 6px;
-              border-top: 1px solid #000;
-              padding-top: 0.05cm;
-              line-height: 1.1;
-            }
-            .footer-payment {
-              margin-top: 0.05cm;
-              font-size: 7px;
-              font-weight: 600;
-              text-transform: uppercase;
-            }
-            .llave-nequi {
-              font-size: 9px;
+            .resumen .total {
+              margin-top: 3px;
+              padding-top: 3px;
+              border-top: 1px dashed #000;
+              font-size: 14px;
               font-weight: 900;
             }
-            .logo {
-              font-weight: bold;
-              margin-top: 0.02cm;
-              font-size: 7px;
+            .bloque {
+              margin-top: 8px;
             }
-            .empresa-info {
-              text-align: left;
+            .bloque .titulo {
+              font-size: 13px;
+              font-weight: 800;
+              margin-bottom: 2px;
+              text-transform: uppercase;
             }
-            .empresa-info div {
-              font-size: 16px !important;
-              font-weight: 700;
-              line-height: 1.1;
+            .nota {
+              margin-top: 8px;
+              font-size: 10px;
+              text-transform: uppercase;
             }
-            .empresa-info strong {
-              font-size: 16px !important;
+            .centrado {
+              text-align: center;
             }
             @media print {
+              html,
               body {
-                margin: 0;
-                padding: 0;
-              }
-              .pagina-oficio {
-                height: 100%;
-                width: 100%;
-              }
-              .seccion-cuenta {
-                border: 1px solid #000;
+                width: 78mm;
+                max-width: 78mm;
               }
             }
           </style>
         </head>
         <body>
-          <div class="pagina-oficio">
-              <!-- COPIA ÚNICA -->
-            <div class="seccion-cuenta">
-              <div class="titulo-seccion">REMISIÓN</div>
-              <div class="encabezado">
-                <div class="empresa-info">
-                  <div><strong>COMERCIALIZADORA ALEXANDRA</strong></div>
-                  <div>REMISIÓN</div>
-                </div>
-                <div class="fecha-wrapper">
-                  <div class="fecha">${formatearFecha(factura.fecha)}</div>
-                </div>
-              </div>
-              
-              <div class="numero-cuenta">REMISIÓN #${factura.id.toString().padStart(6, '0')}</div>
-              
-              <div class="info-cliente-vendedor">
-                <div class="info-item">
-                  <h4>CLIENTE:</h4>
-                  <p class="cliente-nombre">${factura.cliente}</p>
-                  <h4>DIRECCIÓN:</h4>
-                  <p class="direccion-dato">${factura.direccion || 'NO ESPECIFICADO'}</p>
-                </div>
-                <div class="info-item">
-                  <h4>VENDEDOR:</h4>
-                  <p class="vendedor-nombre">${factura.vendedor}</p>
-                  <h4>TELÉFONO:</h4>
-                  <p class="telefono-dato">${factura.telefono || 'NO ESPECIFICADO'}</p>
-                </div>
-              </div>
-              
-              <table class="tabla-productos">
-                <thead>
+          <div class="ticket">
+            <div class="header">
+              <div class="empresa">COMERCIALIZADORA ALEXANDRA</div>
+              <div class="meta">NIT: 80.057.616-3</div>
+              <div class="meta">REG: RESPONSABLE DE IVA</div>
+              <div class="meta">Dir: CRA 18 # 12-47 LOC 613</div>
+              <div class="meta">Tel: 3115793179</div>
+              <div class="doc-title">SOPORTE REMISION .</div>
+              <div class="meta">No: RM-${factura.id.toString().padStart(6, '0')}</div>
+              <div class="meta">FECHA: ${fechaTexto} ${horaTexto}</div>
+            </div>
+
+            <div class="separator"></div>
+
+            <table>
+              <thead>
+                <tr>
+                  <th class="col-art">ARTICULO</th>
+                  <th class="col-und">UND.</th>
+                  <th class="col-valor">VALOR</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${factura.productos.map(producto => `
                   <tr>
-                    <th class="col-producto">PRODUCTO</th>
-                    <th class="col-cantidad">CANT</th>
-                    <th class="col-precio">PRECIO UNIT.</th>
-                    <th class="col-subtotal">SUBTOTAL</th>
+                    <td class="col-art">
+                      <div class="producto-nombre">${producto.nombre}</div>
+                      <div class="subtle">${formatearMonedaImpresion(producto.precio)} x ${producto.cantidad}</div>
+                    </td>
+                    <td class="col-und">${producto.cantidad}</td>
+                    <td class="col-valor">${formatearMonedaImpresion(producto.cantidad * producto.precio)}</td>
                   </tr>
-                </thead>
-                <tbody>
-                  ${factura.productos.map(producto => `
-                    <tr>
-                      <td class="col-producto">${producto.nombre}</td>
-                      <td class="col-cantidad">${producto.cantidad}</td>
-                      <td class="col-precio">${formatearMonedaImpresion(producto.precio)}</td>
-                      <td class="col-subtotal">${formatearMonedaImpresion(producto.cantidad * producto.precio)}</td>
-                    </tr>
-                  `).join('')}
-                </tbody>
-              </table>              <div class="total-letras">
-                <strong>SON: ${convertirNumeroALetras(Math.round(factura.total))}</strong>
-              </div>
-              
-              <div class="resumen-total">
-                <div class="resumen-item">
-                  <div>PRODUCTOS</div>
-                  <div>${factura.productos.length}</div>
-                </div>
-                <div class="resumen-item">
-                  <div>TOTAL</div>
-                  <div>${formatearMonedaImpresion(factura.total)}</div>
-                </div>
-                <div class="resumen-item">
-                  <div>ABONADO</div>
-                  <div>${formatearMonedaImpresion(calcularTotalAbonado())}</div>
-                </div>
-                <div class="resumen-item resumen-saldo">
-                  <div>SALDO</div>
-                  <div class="saldo-valor">${formatearMonedaImpresion(calcularSaldoPendiente())}</div>
-                </div>
-              </div>
-              
-              <div class="estado-firma">
-                <div class="firma">
-                  <div class="firma-linea">Firma del cliente</div>
-                </div>
-                <div class="estado">ESTADO: ${estaPagada() ? 'PAGADA' : 'PENDIENTE'}</div>
-              </div>
-              
-              <div class="footer">
-                <div>Gracias por su preferencia.</div>
-                <div class="footer-payment">TELÉFONO: <span class="llave-nequi">3146577662</span></div>
-                <div class="footer-payment">DIRECCIÓN: CRA 18 # 12 -47</div>
-                <div class="logo">COMERCIALIZADORA ALEXANDRA</div>
+                `).join('')}
+              </tbody>
+            </table>
+
+            <div class="separator"></div>
+
+            <div class="bloque">
+              <div class="titulo">Detalle del IVA</div>
+              <div class="resumen">
+                <div class="linea"><span>PARCIAL:</span><span>${formatearMonedaImpresion(factura.total)}</span></div>
+                <div class="linea"><span>IVA:</span><span>$ 0</span></div>
+                <div class="linea"><span>INC-BOLSAS:</span><span>$ 0</span></div>
+                <div class="linea total"><span>TOTAL VENTA</span><span>${formatearMonedaImpresion(factura.total)}</span></div>
               </div>
             </div>
+
+            <div class="separator"></div>
+
+            <div class="bloque">
+              <div class="row"><div>CAJA NUMERO:</div><div class="subtle">01</div></div>
+              <div class="row"><div>VEND:</div><div class="subtle">${(factura.vendedor || 'VENDEDOR UNO').toUpperCase()}</div></div>
+            </div>
+
+            <div class="bloque">
+              <div class="titulo">CLIENTE:</div>
+              <div class="row"><div>Nit:</div><div class="subtle">${nitCliente}</div></div>
+              <div class="row"><div>Nom:</div><div class="subtle">${(factura.cliente || 'CONSUMIDOR FINAL').toUpperCase()}</div></div>
+              <div class="row"><div>Dir:</div><div class="subtle">${direccionCliente.toUpperCase()}</div></div>
+              <div class="row"><div>Tel:</div><div class="subtle">${telefonoCliente}</div></div>
+            </div>
+
+            <div class="separator"></div>
+
+            <div class="nota centrado">*** ESTA NO ES FRA. ELECT. ES UN SOPORTE DE REMISION</div>
+            <div class="nota centrado">*** INFORMADO</div>
+            <div class="nota centrado">*** BY: SOFTWARE M.A.R</div>
           </div>
         </body>
       </html>

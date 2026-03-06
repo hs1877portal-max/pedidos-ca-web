@@ -396,6 +396,20 @@ const CatalogoClientes = () => {
 
       // Preparar mensaje para WhatsApp
       const numerosWhatsApp = ['573146577662']; // Número WhatsApp (Colombia)
+
+      const normalizarNombreParaMensaje = (nombre = '') => {
+        const texto = String(nombre || '').trim();
+        const textoNormalizado = texto
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .toLowerCase();
+
+        if (textoNormalizado.includes('comercial') && textoNormalizado.includes('alexandra')) {
+          return 'COMERCIALIZADORA ALEXANDRA';
+        }
+
+        return texto;
+      };
       
       let mensaje = `*¡NUEVO PEDIDO!*%0A%0A`;
       mensaje += `*Cliente:* ${clienteInfo.nombre}%0A`;
@@ -406,7 +420,7 @@ const CatalogoClientes = () => {
       mensaje += `%0A*📦 PRODUCTOS SELECCIONADOS:*%0A%0A`;
       
       productosSeleccionados.forEach(p => {
-        mensaje += `✔️ ${p.nombre}%0A`;
+        mensaje += `✔️ ${normalizarNombreParaMensaje(p.nombre)}%0A`;
         mensaje += `   Cantidad: ${p.cantidad}%0A`;
         mensaje += `   Precio: ${formatPrecio(p.precio)}%0A`;
         mensaje += `   Subtotal: ${formatPrecio(p.precio * p.cantidad)}%0A%0A`;
@@ -690,7 +704,7 @@ const CatalogoClientes = () => {
         </button>
         
         <div className="brand-text">
-          EBS Hermanos Marin - ING. Hector S. 3004583117
+          ING EDWIN-MARIN-3004583117
         </div>
       </div>
 
