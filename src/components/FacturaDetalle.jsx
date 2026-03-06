@@ -167,6 +167,7 @@ const FacturaDetalle = () => {
     const nitCliente = factura.nit || factura.identificacion || '2222222222222';
     const direccionCliente = factura.direccion || 'NO ESPECIFICADO';
     const telefonoCliente = factura.telefono || 'NO ESPECIFICADO';
+    const logoTicket = '/logo-ca.png';
     
     const contenidoImpresion = `
       <!DOCTYPE html>
@@ -204,6 +205,18 @@ const FacturaDetalle = () => {
             .meta {
               font-size: 12px;
               margin-top: 2px;
+            }
+            .logo-ticket {
+              width: 100%;
+              text-align: center;
+              margin: 6px 0 8px;
+            }
+            .logo-ticket img {
+              max-width: 60mm;
+              width: 100%;
+              height: auto;
+              object-fit: contain;
+              display: inline-block;
             }
             .doc-title {
               font-size: 15px;
@@ -307,7 +320,10 @@ const FacturaDetalle = () => {
         <body>
           <div class="ticket">
             <div class="header">
-              <div class="empresa">COMERCIALIZADORA ALEXANDRA</div>
+              <div class="empresa"></div>
+              <div class="logo-ticket">
+                <img src="${logoTicket}" alt="Logo Comercializadora Alexandra" onerror="this.style.display='none'" />
+              </div>
               <div class="meta">NIT: 80.057.616-3</div>
               <div class="meta">REG: RESPONSABLE DE IVA</div>
               <div class="meta">Dir: CRA 18 # 12-47 LOC 613</div>
