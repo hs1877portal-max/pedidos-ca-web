@@ -274,6 +274,9 @@ const Navigation = () => {
       <div className="nav-container">
         <div className="nav-brand">
           <Link to="/">
+            <img src="/logo-ca.png" alt="Logo Comercializadora Alexandra" className="brand-logo" />
+          </Link>
+          <Link to="/">
             <h2>COMERCIALIZADORA ALEXANDRA</h2>
           </Link>
           {user && <span className="user-role">{user.role}</span>}
